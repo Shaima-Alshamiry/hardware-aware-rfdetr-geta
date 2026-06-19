@@ -52,6 +52,8 @@ cd hardware-aware-rfdetr
 pip install --upgrade pip
 pip install -r requirements.txt
 
+---
+
 ## 🎓 Citation
 If you use this optimization pipeline or the associated research in your work, please cite both our thesis and the original GETA framework authors:
 
@@ -64,6 +66,7 @@ If you use this optimization pipeline or the associated research in your work, p
   school={Erasmus Mundus IPCVAI}
 }
 
+---
 
 ## GETA Framework
 
@@ -82,6 +85,9 @@ If you find the base optimization framework useful, please cite the original aut
   year={2025}
 
 }
+
+---
+
 ## 📜 Acknowledgements
 
 This research was conducted as part of the Erasmus Mundus Master in Image Processing and Computer Vision (IPCVAI). Special thanks to Vicomtech for their industrial mentorship and support.
