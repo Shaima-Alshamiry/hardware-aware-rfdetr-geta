@@ -1,0 +1,42 @@
+# Datasets & Images
+coco_data/
+cifar10/
+my_dataset/
+images/
+logs_and_results/
+*.json
+*.csv
+img_folder/
+*.jpg
+*.jpeg
+*.png
+
+# Weights & Checkpoints
+*.pth
+*.pt
+checkpoints/
+checkpoints_final/
+checkpoints_fp16/
+extra_models/
+data/
+*.tar.gz
+
+# ONNX Models & TensorRT Engines
+*.onnx
+*.engine
+*.plan
+cleaned_onnx/
+output_dynamic_pruned/
+
+# Caches & Python clutter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+cache/
+curve_cache/
+final_cache/
+
+# Environments
+my_env/
+.env*.json
+*.tar.gz

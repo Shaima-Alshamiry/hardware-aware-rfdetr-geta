@@ -1,0 +1,25 @@
+# Custom NVIDIA Index for ONNX GraphSurgeon
+--extra-index-url https://pypi.ngc.nvidia.com
+
+# Core Machine Learning & Data Science
+torch==2.4.0
+torchvision
+pandas
+scikit-learn
+sympy==1.12
+
+# Visualization & Logging
+matplotlib
+seaborn
+graphviz
+tabulate
+tqdm
+
+# ONNX & TensorRT Export Utilities
+onnx
+onnxruntime-gpu
+onnx-graphsurgeon
+
+# Custom Architecture & Misc
+rfdetr[train,loggers]
+typing_extensions
