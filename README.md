@@ -51,7 +51,7 @@ git clone [https://github.com/Shaima-Alshamiry/hardware-aware-rfdetr-geta.git](h
 cd hardware-aware-rfdetr
 pip install --upgrade pip
 pip install -r requirements.txt
-
+```
 ---
 
 ## 🎓 Citation
@@ -65,7 +65,7 @@ If you use this optimization pipeline or the associated research in your work, p
   year={2026},
   school={Erasmus Mundus IPCVAI}
 }
-
+```
 ---
 
 ## GETA Framework
@@ -85,7 +85,7 @@ If you find the base optimization framework useful, please cite the original aut
   year={2025}
 
 }
-
+```
 ---
 
 ## 📜 Acknowledgements
