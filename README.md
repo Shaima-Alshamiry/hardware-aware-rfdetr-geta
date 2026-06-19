@@ -76,7 +76,6 @@ If you find the base optimization framework useful, please cite the original aut
 ---
 
 ## 📜 Acknowledgements
+This research was conducted as part of the Erasmus Mundus Master in Image Processing and Computer Vision (IPCVAI). 
 
-This research was conducted as part of the Erasmus Mundus Master in Image Processing and Computer Vision (IPCVAI). Special thanks to Vicomtech for their industrial mentorship and support.
-
-Developed by Shaima Al-Shameri | 2026
+I would like to express my sincere gratitude to my supervisor, Dr. Pedro, Brandimarte, for their invaluable guidance, mentorship, and support throughout this thesis. Special thanks to the team at **Vicomtech** for their industrial mentorship and providing the resources necessary for this research.
