@@ -13,7 +13,7 @@ By bridging these layers, this project achieves a **133.6% throughput accelerati
 ## 🛠 Architectural Overview
 We implemented a decoupled generative paradigm to ensure GDPR compliance while maximizing throughput:
 
-![Decoupled Generative Paradigm](assets/privacy_paradigm.png)
+![Decoupled Generative Paradigm](privacy_paradigm.png)
 
 ### Key Engineering Interventions
 * **Native QDQ Bridge:** A custom engineering solution that forces PyTorch into strict symmetric quantization compliance for NVIDIA TensorRT, completely eliminating the "Fake Quantization Tax."
@@ -35,7 +35,7 @@ We implemented a decoupled generative paradigm to ensure GDPR compliance while m
 ## 📊 Hardware Validation (NVIDIA Jetson AGX Orin)
 Our co-design strategy shifts the perception pipeline from a **compute-bound** regime to an **IO-Bound (Memory-Bound)** regime.
 
-![Throughput Plateau](assets/throughput_plateau.png)
+![Throughput Plateau](throughput_plateau.png)
 
 | Metric | FP16 Baseline | Optimized (INT8 GETA) | Improvement |
 | :--- | :--- | :--- | :--- |
@@ -54,19 +54,6 @@ pip install -r requirements.txt
 ```
 ---
 
-## 🎓 Citation
-If you use this optimization pipeline or the associated research in your work, please cite both our thesis and the original GETA framework authors:
-
-**Thesis:**
-```bibtex
-@mastersthesis{alshameri2026hardware,
-  title={AI Model Optimization for In-Vehicle Real-Time Applications},
-  author={Al-Shameri, Shaima Mohammed Abdulqawi Ghaleb},
-  year={2026},
-  school={Erasmus Mundus IPCVAI}
-}
-```
----
 
 ## GETA Framework
 
