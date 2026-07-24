@@ -6,19 +6,21 @@
 
 This repository contains the official implementation of the optimization pipeline developed for the Erasmus Mundus IPCVAI Master's Thesis. We bridge the gap between theoretical **Frugal AI** frameworks and low-level TensorRT compiler constraints to deploy high-fidelity **RF-DETR** perception models on resource-constrained automotive edge hardware (**NVIDIA Jetson AGX Orin**).
 
-By bridging these layers, this project achieves a **133.6% throughput acceleration (141+ FPS)** for real-time person-segmentation and anonymization.
+By bridging these layers, this project achieves a high-performance acceleration for real-time person-segmentation and anonymization.
 
 ---
 
 ## 🛠 Architectural Overview
-We implemented a decoupled generative paradigm to ensure GDPR compliance while maximizing throughput:
+We implemented a decoupled generative paradigm to ensure compliance while maximizing throughput:
 
 ![Decoupled Generative Paradigm](privacy_paradigm.png)
 
 ### Key Engineering Interventions
-* **Native QDQ Bridge:** A custom engineering solution that forces PyTorch into strict symmetric quantization compliance for NVIDIA TensorRT, completely eliminating the "Fake Quantization Tax."
-* **Algorithmic Stabilization:** Implements a "Smart Gradient Shield" and Delayed Pruning Strategy to prevent Neural **Capacity Collapse** during extreme INT8/INT4 Quantization-Aware Training (QAT).
-* **Mixed-Precision Routing:** Strategic INT8 backbone execution with an FP16 fallback for sensitive Attention mechanisms, reducing latency to **7.05 ms**.
+* **Native QDQ Bridge:** A custom engineering solution that forces PyTorch into strict symmetric quantization compliance for NVIDIA TensorRT, completely eliminating optimization friction.
+* **Algorithmic Stabilization:** Implements structural pruning and delayed strategies to prevent neural capacity collapse during training and optimization.
+* **Mixed-Precision Routing:** Strategic execution utilizing optimized TensorRT precision to maximize edge throughput while ensuring full visual integrity.
+
+---
 
 ---
 ## 📂 Repository Structure
