@@ -21,28 +21,25 @@ We implemented a decoupled generative paradigm to ensure GDPR compliance while m
 * **Mixed-Precision Routing:** Strategic INT8 backbone execution with an FP16 fallback for sensitive Attention mechanisms, reducing latency to **7.05 ms**.
 
 ---
-
 ## 📂 Repository Structure
 * `only_train_once/`: The core GETA joint-optimization framework.
 * `rf_detr/`: The modified Vision Transformer architecture.
-* `scripts/`: Contains the end-to-end pipeline:
-  * `train.py`: The stabilized joint pruning & QAT training loop.
-  * `patches.py` & `qdq_layers.py`: Custom runtime monkey patches and symmetric quantization layers.
-  * `prune.py` & `export.py`: Deep graph surgery and ONNX export for TensorRT.
-
+* `scripts/`: Contains the complete end-to-end pipeline, evaluation tools, and auxiliary scripts:
+  * `patches.py` & `qdq_layers.py`: Custom runtime monkey patches and layer structures.
+  * `prune.py`: Deep graph surgery and structural pruning execution.
+  * `export.py`: ONNX export pipeline for TensorRT compilation.
+  * `evaluate.py`: Comprehensive evaluation pipeline for Bounding Box (`bbox`) and Segmentation (`segm`) COCO metrics.
+  * `resnet18.py` (or your ResNet script name): Auxiliary script for running and benchmarking alternative ResNet18 configurations.
 ---
 
-## 📊 Hardware Validation (NVIDIA Jetson AGX Orin)
-Our co-design strategy shifts the perception pipeline from a **compute-bound** regime to an **IO-Bound (Memory-Bound)** regime.
+## 📊 Hardware Validation & Performance
+Our optimization strategy successfully reduces compute overhead while maintaining complete visual fidelity and detection accuracy.
 
-![Throughput Plateau](throughput_plateau.png)
-
-| Metric | FP16 Baseline | Optimized (INT8 GETA) | Improvement |
-| :--- | :--- | :--- | :--- |
-| **Throughput** | 60.68 FPS | 141.79 FPS | **+133.6%** |
-| **Latency** | 16.48 ms | 7.05 ms | **-57.2%** |
-| **Energy/Frame**| 0.594 J | 0.234 J | **-60.6%** |
-
+| Metric | FP16 Baseline | Optimized Production Model (FP16 Pruned) |
+| :--- | :--- | :--- |
+| **Inference Latency** | 6.61 ms | **2.22 ms** (~3x Speedup) |
+| **Pipeline FPS** | 60.17 FPS | **72.26 FPS** |
+| **Model Footprint** | Standard | Slightly Smaller (Reduced Memory Overhead) |
 ---
 
 ## 🚀 Quick Start
@@ -51,6 +48,26 @@ git clone [https://github.com/Shaima-Alshamiry/hardware-aware-rfdetr-geta.git](h
 cd hardware-aware-rfdetr
 pip install --upgrade pip
 pip install -r requirements.txt
+```
+# Step 1: applying geta and train the model
+```bash
+python3 scripts/train.py --train-subset 0.70 --val-subset 500 --epochs 20
+```
+# Step 2: Commit Structural Pruning and cleaning 
+```bash
+python3 scripts/prune.py --checkpoint ./checkpoints/geta_best.pth --output clean_pruned_rfdetr_lv.pth
+```
+# Step 3: Export to Clean Production ONNX
+```bash
+python3 scripts/export.py --model clean_pruned_rfdetr_lv.pth --output rfdetr_production_lv.onnx
+```
+# Step 4: Run Evaluation (COCO Metrics)
+```bash
+python3 scripts/evaluate_map.py --mode geta --weights clean_pruned_rfdetr_latest.pth --ann_file ./coco_data/annotations/instances_val2017.json --batch_size 32
+```
+# To Run ResNet18 Baseline Script (Optional)
+```bash
+python3 scripts/resnet18.py 
 ```
 ---
 
