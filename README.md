@@ -67,7 +67,7 @@ python3 scripts/evaluate_map.py --mode geta --weights clean_pruned_rfdetr_latest
 ```
 # To Run ResNet18 Baseline Script (Optional)
 ```bash
-python3 scripts/resnet18.py 
+python3 scripts/Resnet18_GETA.py 
 ```
 ---
 
