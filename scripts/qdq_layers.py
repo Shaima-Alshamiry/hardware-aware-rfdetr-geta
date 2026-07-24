@@ -4,6 +4,53 @@ import torch.nn.functional as F
 
 class NativeQDQConv2d(nn.Conv2d):
     def __init__(self, in_channels, out_channels, kernel_size, stride=1,
+                 padding=0, dilation=1, groups=1, bias=True, **kwargs):
+        super().__init__(in_channels, out_channels, kernel_size, stride,
+                         padding, dilation, groups, bias, **kwargs)
+        # Initialize buffers for TensorRT QDQ parsing
+        with torch.no_grad():
+            per_channel_max = self.weight.abs().view(out_channels, -1).max(dim=1)[0]
+            initial_scales = torch.clamp(per_channel_max / 127.0, min=1e-8)
+        
+        self.register_buffer('scales', initial_scales.to(torch.float32))
+        self.register_buffer('zero_points', torch.zeros(out_channels, dtype=torch.int32))
+
+    def forward(self, x):
+        w_qdq = torch.fake_quantize_per_channel_affine(
+            self.weight, 
+            self.scales, 
+            self.zero_points.int(), 
+            0, 
+            -128, 
+            127
+        )
+        return self._conv_forward(x, w_qdq, self.bias)
+
+class NativeQDQLinear(nn.Linear):
+    def __init__(self, in_features, out_features, bias=True, **kwargs):
+        super().__init__(in_features, out_features, bias=bias, **kwargs)
+        with torch.no_grad():
+            per_channel_max = self.weight.abs().max(dim=1)[0]
+            initial_scales = torch.clamp(per_channel_max / 127.0, min=1e-8)
+            
+        self.register_buffer('scales', initial_scales.to(torch.float32))
+        self.register_buffer('zero_points', torch.zeros(out_features, dtype=torch.int32))
+
+    def forward(self, x):
+        w_qdq = torch.fake_quantize_per_channel_affine(
+            self.weight, 
+            self.scales, 
+            self.zero_points.int(), 
+            0, 
+            -128, 
+            127
+        )
+        return F.linear(x, w_qdq, self.bias)import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class NativeQDQConv2d(nn.Conv2d):
+    def __init__(self, in_channels, out_channels, kernel_size, stride=1,
                  padding=0, dilation=1, groups=1, bias=True, scale=1.0, **kwargs):
         super().__init__(in_channels, out_channels, kernel_size, stride,
                          padding, dilation, groups, bias, **kwargs)
