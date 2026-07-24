@@ -21,8 +21,6 @@ We implemented a decoupled generative paradigm to ensure compliance while maximi
 * **Mixed-Precision Routing:** Strategic execution utilizing optimized TensorRT precision to maximize edge throughput while ensuring full visual integrity.
 
 ---
-
----
 ## 📂 Repository Structure
 * `only_train_once/`: The core GETA joint-optimization framework.
 * `rf_detr/`: The modified Vision Transformer architecture.
